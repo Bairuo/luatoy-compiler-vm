@@ -1,0 +1,857 @@
+Nonterminals useless in grammar
+
+   funcname
+   pointName
+
+
+Terminals unused in grammar
+
+   TOKEN_SEP_DOT
+   TOKEN_SEP_COLON
+   TOKEN_SEP_LABEL
+   TOKEN_SEP_LBRACK
+   TOKEN_SEP_RBRACK
+   TOKEN_SEP_LCURLY
+   TOKEN_SEP_RCURLY
+   TOKEN_OP_MINUS
+   TOKEN_OP_WAVE
+   TOKEN_OP_ADD
+   TOKEN_OP_MUL
+   TOKEN_OP_DIV
+   TOKEN_OP_IDIV
+   TOKEN_OP_POW
+   TOKEN_OP_MOD
+   TOKEN_OP_BAND
+   TOKEN_OP_BOR
+   TOKEN_OP_SHR
+   TOKEN_OP_SHL
+   TOKEN_OP_CONCAT
+   TOKEN_OP_LT
+   TOKEN_OP_LE
+   TOKEN_OP_GT
+   TOKEN_OP_GE
+   TOKEN_OP_EQ
+   TOKEN_OP_NE
+   TOKEN_OP_LEN
+   TOKEN_OP_AND
+   TOKEN_OP_OR
+   TOKEN_OP_NOT
+   TOKEN_KW_ELSE
+   TOKEN_KW_ELSEIF
+   TOKEN_KW_FALSE
+   TOKEN_KW_IF
+   TOKEN_KW_LOCAL
+   TOKEN_KW_NIL
+   TOKEN_KW_THEN
+   TOKEN_KW_TRUE
+   TOKEN_OP_UNM
+   TOKEN_OP_SUB
+   TOKEN_OP_BNOT
+   TOKEN_OP_BXOR
+
+
+语法中的规则无效
+
+   29 funcname: pointName TOKEN_SEP_COLON name
+   30         | pointName
+
+   31 pointName: name TOKEN_SEP_DOT pointName
+   32          | name
+
+
+状态 33 conflicts: 1 shift/reduce
+
+
+语法
+
+    0 $accept: block TOKEN_EOF
+
+    1 block: stat retstat
+    2      | stat
+
+    3 stat: TOKEN_SEP_SEMI
+    4     | TOKEN_KW_BREAK
+    5     | TOKEN_KW_GOTO name
+    6     | TOKEN_KW_DO block TOKEN_KW_END
+    7     | TOKEN_KW_WHILE exp TOKEN_KW_DO block TOKEN_KW_END
+    8     | TOKEN_KW_REPEAT block TOKEN_KW_UNTIL exp
+    9     | TOKEN_KW_FOR name TOKEN_OP_ASSIGN exp TOKEN_SEP_COMMA exp TOKEN_KW_DO block TOKEN_KW_END
+   10     | TOKEN_KW_FOR name TOKEN_OP_ASSIGN exp TOKEN_SEP_COMMA exp TOKEN_SEP_COMMA exp TOKEN_KW_DO block TOKEN_KW_END
+   11     | TOKEN_KW_FOR namelist TOKEN_KW_IN explist TOKEN_KW_DO block TOKEN_KW_END
+   12     | TOKEN_KW_FUNCTION funcbody
+   13     | %empty
+
+   14 funcbody: TOKEN_SEP_LPAREN parlist TOKEN_SEP_RPAREN block TOKEN_KW_END
+   15         | TOKEN_SEP_LPAREN TOKEN_SEP_RPAREN block TOKEN_KW_END
+
+   16 retstat: TOKEN_KW_RETURN explist TOKEN_SEP_SEMI
+   17        | TOKEN_KW_RETURN TOKEN_SEP_SEMI
+   18        | TOKEN_KW_RETURN
+
+   19 parlist: namelist TOKEN_SEP_COMMA TOKEN_VARARG
+   20        | namelist
+   21        | TOKEN_VARARG
+
+   22 explist: exp TOKEN_SEP_COMMA explist
+   23        | exp
+
+   24 exp: TOKEN_NUMBER
+   25    | TOKEN_STRING
+
+   26 namelist: name TOKEN_SEP_COMMA namelist
+   27         | name
+
+   28 name: TOKEN_IDENTIFIER
+
+
+Terminals, with rules where they appear
+
+TOKEN_EOF (0) 0
+TOKEN_VARARG (1) 19 21
+TOKEN_SEP_SEMI (2) 3 16 17
+TOKEN_SEP_COMMA (3) 9 10 19 22 26
+TOKEN_SEP_DOT (4)
+TOKEN_SEP_COLON (5)
+TOKEN_SEP_LABEL (6)
+TOKEN_SEP_LPAREN (7) 14 15
+TOKEN_SEP_RPAREN (8) 14 15
+TOKEN_SEP_LBRACK (9)
+TOKEN_SEP_RBRACK (10)
+TOKEN_SEP_LCURLY (11)
+TOKEN_SEP_RCURLY (12)
+TOKEN_OP_ASSIGN (13) 9 10
+TOKEN_OP_MINUS (14)
+TOKEN_OP_WAVE (15)
+TOKEN_OP_ADD (16)
+TOKEN_OP_MUL (17)
+TOKEN_OP_DIV (18)
+TOKEN_OP_IDIV (19)
+TOKEN_OP_POW (20)
+TOKEN_OP_MOD (21)
+TOKEN_OP_BAND (22)
+TOKEN_OP_BOR (23)
+TOKEN_OP_SHR (24)
+TOKEN_OP_SHL (25)
+TOKEN_OP_CONCAT (26)
+TOKEN_OP_LT (27)
+TOKEN_OP_LE (28)
+TOKEN_OP_GT (29)
+TOKEN_OP_GE (30)
+TOKEN_OP_EQ (31)
+TOKEN_OP_NE (32)
+TOKEN_OP_LEN (33)
+TOKEN_OP_AND (34)
+TOKEN_OP_OR (35)
+TOKEN_OP_NOT (36)
+TOKEN_KW_BREAK (37) 4
+TOKEN_KW_DO (38) 6 7 9 10 11
+TOKEN_KW_ELSE (39)
+TOKEN_KW_ELSEIF (40)
+TOKEN_KW_END (41) 6 7 9 10 11 14 15
+TOKEN_KW_FALSE (42)
+TOKEN_KW_FOR (43) 9 10 11
+TOKEN_KW_FUNCTION (44) 12
+TOKEN_KW_GOTO (45) 5
+TOKEN_KW_IF (46)
+TOKEN_KW_IN (47) 11
+TOKEN_KW_LOCAL (48)
+TOKEN_KW_NIL (49)
+TOKEN_KW_REPEAT (50) 8
+TOKEN_KW_RETURN (51) 16 17 18
+TOKEN_KW_THEN (52)
+TOKEN_KW_TRUE (53)
+TOKEN_KW_UNTIL (54) 8
+TOKEN_KW_WHILE (55) 7
+TOKEN_IDENTIFIER (56) 28
+TOKEN_NUMBER (57) 24
+TOKEN_STRING (58) 25
+error (256)
+TOKEN_OP_UNM (258)
+TOKEN_OP_SUB (259)
+TOKEN_OP_BNOT (260)
+TOKEN_OP_BXOR (261)
+
+
+Nonterminals, with rules where they appear
+
+$accept (65)
+    左： 0
+block (66)
+    左： 1 2, 右： 0 6 7 8 9 10 11 14 15
+stat (67)
+    左： 3 4 5 6 7 8 9 10 11 12 13, 右： 1 2
+funcbody (68)
+    左： 14 15, 右： 12
+retstat (69)
+    左： 16 17 18, 右： 1
+parlist (70)
+    左： 19 20 21, 右： 14
+explist (71)
+    左： 22 23, 右： 11 16 22
+exp (72)
+    左： 24 25, 右： 7 8 9 10 22 23
+namelist (73)
+    左： 26 27, 右： 11 19 20 26
+name (74)
+    左： 28, 右： 5 9 10 26 27
+
+
+State 0
+
+    0 $accept: . block TOKEN_EOF
+
+    TOKEN_SEP_SEMI     shift, and go to state 1
+    TOKEN_KW_BREAK     shift, and go to state 2
+    TOKEN_KW_DO        shift, and go to state 3
+    TOKEN_KW_FOR       shift, and go to state 4
+    TOKEN_KW_FUNCTION  shift, and go to state 5
+    TOKEN_KW_GOTO      shift, and go to state 6
+    TOKEN_KW_REPEAT    shift, and go to state 7
+    TOKEN_KW_WHILE     shift, and go to state 8
+
+    $default  reduce using rule 13 (stat)
+
+    block  转到状态 9
+    stat   转到状态 10
+
+
+State 1
+
+    3 stat: TOKEN_SEP_SEMI .
+
+    $default  reduce using rule 3 (stat)
+
+
+State 2
+
+    4 stat: TOKEN_KW_BREAK .
+
+    $default  reduce using rule 4 (stat)
+
+
+State 3
+
+    6 stat: TOKEN_KW_DO . block TOKEN_KW_END
+
+    TOKEN_SEP_SEMI     shift, and go to state 1
+    TOKEN_KW_BREAK     shift, and go to state 2
+    TOKEN_KW_DO        shift, and go to state 3
+    TOKEN_KW_FOR       shift, and go to state 4
+    TOKEN_KW_FUNCTION  shift, and go to state 5
+    TOKEN_KW_GOTO      shift, and go to state 6
+    TOKEN_KW_REPEAT    shift, and go to state 7
+    TOKEN_KW_WHILE     shift, and go to state 8
+
+    $default  reduce using rule 13 (stat)
+
+    block  转到状态 11
+    stat   转到状态 10
+
+
+State 4
+
+    9 stat: TOKEN_KW_FOR . name TOKEN_OP_ASSIGN exp TOKEN_SEP_COMMA exp TOKEN_KW_DO block TOKEN_KW_END
+   10     | TOKEN_KW_FOR . name TOKEN_OP_ASSIGN exp TOKEN_SEP_COMMA exp TOKEN_SEP_COMMA exp TOKEN_KW_DO block TOKEN_KW_END
+   11     | TOKEN_KW_FOR . namelist TOKEN_KW_IN explist TOKEN_KW_DO block TOKEN_KW_END
+
+    TOKEN_IDENTIFIER  shift, and go to state 12
+
+    namelist  转到状态 13
+    name      转到状态 14
+
+
+State 5
+
+   12 stat: TOKEN_KW_FUNCTION . funcbody
+
+    TOKEN_SEP_LPAREN  shift, and go to state 15
+
+    funcbody  转到状态 16
+
+
+State 6
+
+    5 stat: TOKEN_KW_GOTO . name
+
+    TOKEN_IDENTIFIER  shift, and go to state 12
+
+    name  转到状态 17
+
+
+State 7
+
+    8 stat: TOKEN_KW_REPEAT . block TOKEN_KW_UNTIL exp
+
+    TOKEN_SEP_SEMI     shift, and go to state 1
+    TOKEN_KW_BREAK     shift, and go to state 2
+    TOKEN_KW_DO        shift, and go to state 3
+    TOKEN_KW_FOR       shift, and go to state 4
+    TOKEN_KW_FUNCTION  shift, and go to state 5
+    TOKEN_KW_GOTO      shift, and go to state 6
+    TOKEN_KW_REPEAT    shift, and go to state 7
+    TOKEN_KW_WHILE     shift, and go to state 8
+
+    $default  reduce using rule 13 (stat)
+
+    block  转到状态 18
+    stat   转到状态 10
+
+
+State 8
+
+    7 stat: TOKEN_KW_WHILE . exp TOKEN_KW_DO block TOKEN_KW_END
+
+    TOKEN_NUMBER  shift, and go to state 19
+    TOKEN_STRING  shift, and go to state 20
+
+    exp  转到状态 21
+
+
+State 9
+
+    0 $accept: block . TOKEN_EOF
+
+    TOKEN_EOF  shift, and go to state 22
+
+
+State 10
+
+    1 block: stat . retstat
+    2      | stat .
+
+    TOKEN_KW_RETURN  shift, and go to state 23
+
+    $default  reduce using rule 2 (block)
+
+    retstat  转到状态 24
+
+
+State 11
+
+    6 stat: TOKEN_KW_DO block . TOKEN_KW_END
+
+    TOKEN_KW_END  shift, and go to state 25
+
+
+State 12
+
+   28 name: TOKEN_IDENTIFIER .
+
+    $default  reduce using rule 28 (name)
+
+
+State 13
+
+   11 stat: TOKEN_KW_FOR namelist . TOKEN_KW_IN explist TOKEN_KW_DO block TOKEN_KW_END
+
+    TOKEN_KW_IN  shift, and go to state 26
+
+
+State 14
+
+    9 stat: TOKEN_KW_FOR name . TOKEN_OP_ASSIGN exp TOKEN_SEP_COMMA exp TOKEN_KW_DO block TOKEN_KW_END
+   10     | TOKEN_KW_FOR name . TOKEN_OP_ASSIGN exp TOKEN_SEP_COMMA exp TOKEN_SEP_COMMA exp TOKEN_KW_DO block TOKEN_KW_END
+   26 namelist: name . TOKEN_SEP_COMMA namelist
+   27         | name .
+
+    TOKEN_SEP_COMMA  shift, and go to state 27
+    TOKEN_OP_ASSIGN  shift, and go to state 28
+
+    $default  reduce using rule 27 (namelist)
+
+
+State 15
+
+   14 funcbody: TOKEN_SEP_LPAREN . parlist TOKEN_SEP_RPAREN block TOKEN_KW_END
+   15         | TOKEN_SEP_LPAREN . TOKEN_SEP_RPAREN block TOKEN_KW_END
+
+    TOKEN_VARARG      shift, and go to state 29
+    TOKEN_SEP_RPAREN  shift, and go to state 30
+    TOKEN_IDENTIFIER  shift, and go to state 12
+
+    parlist   转到状态 31
+    namelist  转到状态 32
+    name      转到状态 33
+
+
+State 16
+
+   12 stat: TOKEN_KW_FUNCTION funcbody .
+
+    $default  reduce using rule 12 (stat)
+
+
+State 17
+
+    5 stat: TOKEN_KW_GOTO name .
+
+    $default  reduce using rule 5 (stat)
+
+
+State 18
+
+    8 stat: TOKEN_KW_REPEAT block . TOKEN_KW_UNTIL exp
+
+    TOKEN_KW_UNTIL  shift, and go to state 34
+
+
+State 19
+
+   24 exp: TOKEN_NUMBER .
+
+    $default  reduce using rule 24 (exp)
+
+
+State 20
+
+   25 exp: TOKEN_STRING .
+
+    $default  reduce using rule 25 (exp)
+
+
+State 21
+
+    7 stat: TOKEN_KW_WHILE exp . TOKEN_KW_DO block TOKEN_KW_END
+
+    TOKEN_KW_DO  shift, and go to state 35
+
+
+State 22
+
+    0 $accept: block TOKEN_EOF .
+
+    $default  接受
+
+
+State 23
+
+   16 retstat: TOKEN_KW_RETURN . explist TOKEN_SEP_SEMI
+   17        | TOKEN_KW_RETURN . TOKEN_SEP_SEMI
+   18        | TOKEN_KW_RETURN .
+
+    TOKEN_SEP_SEMI  shift, and go to state 36
+    TOKEN_NUMBER    shift, and go to state 19
+    TOKEN_STRING    shift, and go to state 20
+
+    $default  reduce using rule 18 (retstat)
+
+    explist  转到状态 37
+    exp      转到状态 38
+
+
+State 24
+
+    1 block: stat retstat .
+
+    $default  reduce using rule 1 (block)
+
+
+State 25
+
+    6 stat: TOKEN_KW_DO block TOKEN_KW_END .
+
+    $default  reduce using rule 6 (stat)
+
+
+State 26
+
+   11 stat: TOKEN_KW_FOR namelist TOKEN_KW_IN . explist TOKEN_KW_DO block TOKEN_KW_END
+
+    TOKEN_NUMBER  shift, and go to state 19
+    TOKEN_STRING  shift, and go to state 20
+
+    explist  转到状态 39
+    exp      转到状态 38
+
+
+State 27
+
+   26 namelist: name TOKEN_SEP_COMMA . namelist
+
+    TOKEN_IDENTIFIER  shift, and go to state 12
+
+    namelist  转到状态 40
+    name      转到状态 33
+
+
+State 28
+
+    9 stat: TOKEN_KW_FOR name TOKEN_OP_ASSIGN . exp TOKEN_SEP_COMMA exp TOKEN_KW_DO block TOKEN_KW_END
+   10     | TOKEN_KW_FOR name TOKEN_OP_ASSIGN . exp TOKEN_SEP_COMMA exp TOKEN_SEP_COMMA exp TOKEN_KW_DO block TOKEN_KW_END
+
+    TOKEN_NUMBER  shift, and go to state 19
+    TOKEN_STRING  shift, and go to state 20
+
+    exp  转到状态 41
+
+
+State 29
+
+   21 parlist: TOKEN_VARARG .
+
+    $default  reduce using rule 21 (parlist)
+
+
+State 30
+
+   15 funcbody: TOKEN_SEP_LPAREN TOKEN_SEP_RPAREN . block TOKEN_KW_END
+
+    TOKEN_SEP_SEMI     shift, and go to state 1
+    TOKEN_KW_BREAK     shift, and go to state 2
+    TOKEN_KW_DO        shift, and go to state 3
+    TOKEN_KW_FOR       shift, and go to state 4
+    TOKEN_KW_FUNCTION  shift, and go to state 5
+    TOKEN_KW_GOTO      shift, and go to state 6
+    TOKEN_KW_REPEAT    shift, and go to state 7
+    TOKEN_KW_WHILE     shift, and go to state 8
+
+    $default  reduce using rule 13 (stat)
+
+    block  转到状态 42
+    stat   转到状态 10
+
+
+State 31
+
+   14 funcbody: TOKEN_SEP_LPAREN parlist . TOKEN_SEP_RPAREN block TOKEN_KW_END
+
+    TOKEN_SEP_RPAREN  shift, and go to state 43
+
+
+State 32
+
+   19 parlist: namelist . TOKEN_SEP_COMMA TOKEN_VARARG
+   20        | namelist .
+
+    TOKEN_SEP_COMMA  shift, and go to state 44
+
+    $default  reduce using rule 20 (parlist)
+
+
+State 33
+
+   26 namelist: name . TOKEN_SEP_COMMA namelist
+   27         | name .
+
+    TOKEN_SEP_COMMA  shift, and go to state 27
+
+    TOKEN_SEP_COMMA  [reduce using rule 27 (namelist)]
+    $default         reduce using rule 27 (namelist)
+
+
+State 34
+
+    8 stat: TOKEN_KW_REPEAT block TOKEN_KW_UNTIL . exp
+
+    TOKEN_NUMBER  shift, and go to state 19
+    TOKEN_STRING  shift, and go to state 20
+
+    exp  转到状态 45
+
+
+State 35
+
+    7 stat: TOKEN_KW_WHILE exp TOKEN_KW_DO . block TOKEN_KW_END
+
+    TOKEN_SEP_SEMI     shift, and go to state 1
+    TOKEN_KW_BREAK     shift, and go to state 2
+    TOKEN_KW_DO        shift, and go to state 3
+    TOKEN_KW_FOR       shift, and go to state 4
+    TOKEN_KW_FUNCTION  shift, and go to state 5
+    TOKEN_KW_GOTO      shift, and go to state 6
+    TOKEN_KW_REPEAT    shift, and go to state 7
+    TOKEN_KW_WHILE     shift, and go to state 8
+
+    $default  reduce using rule 13 (stat)
+
+    block  转到状态 46
+    stat   转到状态 10
+
+
+State 36
+
+   17 retstat: TOKEN_KW_RETURN TOKEN_SEP_SEMI .
+
+    $default  reduce using rule 17 (retstat)
+
+
+State 37
+
+   16 retstat: TOKEN_KW_RETURN explist . TOKEN_SEP_SEMI
+
+    TOKEN_SEP_SEMI  shift, and go to state 47
+
+
+State 38
+
+   22 explist: exp . TOKEN_SEP_COMMA explist
+   23        | exp .
+
+    TOKEN_SEP_COMMA  shift, and go to state 48
+
+    $default  reduce using rule 23 (explist)
+
+
+State 39
+
+   11 stat: TOKEN_KW_FOR namelist TOKEN_KW_IN explist . TOKEN_KW_DO block TOKEN_KW_END
+
+    TOKEN_KW_DO  shift, and go to state 49
+
+
+State 40
+
+   26 namelist: name TOKEN_SEP_COMMA namelist .
+
+    $default  reduce using rule 26 (namelist)
+
+
+State 41
+
+    9 stat: TOKEN_KW_FOR name TOKEN_OP_ASSIGN exp . TOKEN_SEP_COMMA exp TOKEN_KW_DO block TOKEN_KW_END
+   10     | TOKEN_KW_FOR name TOKEN_OP_ASSIGN exp . TOKEN_SEP_COMMA exp TOKEN_SEP_COMMA exp TOKEN_KW_DO block TOKEN_KW_END
+
+    TOKEN_SEP_COMMA  shift, and go to state 50
+
+
+State 42
+
+   15 funcbody: TOKEN_SEP_LPAREN TOKEN_SEP_RPAREN block . TOKEN_KW_END
+
+    TOKEN_KW_END  shift, and go to state 51
+
+
+State 43
+
+   14 funcbody: TOKEN_SEP_LPAREN parlist TOKEN_SEP_RPAREN . block TOKEN_KW_END
+
+    TOKEN_SEP_SEMI     shift, and go to state 1
+    TOKEN_KW_BREAK     shift, and go to state 2
+    TOKEN_KW_DO        shift, and go to state 3
+    TOKEN_KW_FOR       shift, and go to state 4
+    TOKEN_KW_FUNCTION  shift, and go to state 5
+    TOKEN_KW_GOTO      shift, and go to state 6
+    TOKEN_KW_REPEAT    shift, and go to state 7
+    TOKEN_KW_WHILE     shift, and go to state 8
+
+    $default  reduce using rule 13 (stat)
+
+    block  转到状态 52
+    stat   转到状态 10
+
+
+State 44
+
+   19 parlist: namelist TOKEN_SEP_COMMA . TOKEN_VARARG
+
+    TOKEN_VARARG  shift, and go to state 53
+
+
+State 45
+
+    8 stat: TOKEN_KW_REPEAT block TOKEN_KW_UNTIL exp .
+
+    $default  reduce using rule 8 (stat)
+
+
+State 46
+
+    7 stat: TOKEN_KW_WHILE exp TOKEN_KW_DO block . TOKEN_KW_END
+
+    TOKEN_KW_END  shift, and go to state 54
+
+
+State 47
+
+   16 retstat: TOKEN_KW_RETURN explist TOKEN_SEP_SEMI .
+
+    $default  reduce using rule 16 (retstat)
+
+
+State 48
+
+   22 explist: exp TOKEN_SEP_COMMA . explist
+
+    TOKEN_NUMBER  shift, and go to state 19
+    TOKEN_STRING  shift, and go to state 20
+
+    explist  转到状态 55
+    exp      转到状态 38
+
+
+State 49
+
+   11 stat: TOKEN_KW_FOR namelist TOKEN_KW_IN explist TOKEN_KW_DO . block TOKEN_KW_END
+
+    TOKEN_SEP_SEMI     shift, and go to state 1
+    TOKEN_KW_BREAK     shift, and go to state 2
+    TOKEN_KW_DO        shift, and go to state 3
+    TOKEN_KW_FOR       shift, and go to state 4
+    TOKEN_KW_FUNCTION  shift, and go to state 5
+    TOKEN_KW_GOTO      shift, and go to state 6
+    TOKEN_KW_REPEAT    shift, and go to state 7
+    TOKEN_KW_WHILE     shift, and go to state 8
+
+    $default  reduce using rule 13 (stat)
+
+    block  转到状态 56
+    stat   转到状态 10
+
+
+State 50
+
+    9 stat: TOKEN_KW_FOR name TOKEN_OP_ASSIGN exp TOKEN_SEP_COMMA . exp TOKEN_KW_DO block TOKEN_KW_END
+   10     | TOKEN_KW_FOR name TOKEN_OP_ASSIGN exp TOKEN_SEP_COMMA . exp TOKEN_SEP_COMMA exp TOKEN_KW_DO block TOKEN_KW_END
+
+    TOKEN_NUMBER  shift, and go to state 19
+    TOKEN_STRING  shift, and go to state 20
+
+    exp  转到状态 57
+
+
+State 51
+
+   15 funcbody: TOKEN_SEP_LPAREN TOKEN_SEP_RPAREN block TOKEN_KW_END .
+
+    $default  reduce using rule 15 (funcbody)
+
+
+State 52
+
+   14 funcbody: TOKEN_SEP_LPAREN parlist TOKEN_SEP_RPAREN block . TOKEN_KW_END
+
+    TOKEN_KW_END  shift, and go to state 58
+
+
+State 53
+
+   19 parlist: namelist TOKEN_SEP_COMMA TOKEN_VARARG .
+
+    $default  reduce using rule 19 (parlist)
+
+
+State 54
+
+    7 stat: TOKEN_KW_WHILE exp TOKEN_KW_DO block TOKEN_KW_END .
+
+    $default  reduce using rule 7 (stat)
+
+
+State 55
+
+   22 explist: exp TOKEN_SEP_COMMA explist .
+
+    $default  reduce using rule 22 (explist)
+
+
+State 56
+
+   11 stat: TOKEN_KW_FOR namelist TOKEN_KW_IN explist TOKEN_KW_DO block . TOKEN_KW_END
+
+    TOKEN_KW_END  shift, and go to state 59
+
+
+State 57
+
+    9 stat: TOKEN_KW_FOR name TOKEN_OP_ASSIGN exp TOKEN_SEP_COMMA exp . TOKEN_KW_DO block TOKEN_KW_END
+   10     | TOKEN_KW_FOR name TOKEN_OP_ASSIGN exp TOKEN_SEP_COMMA exp . TOKEN_SEP_COMMA exp TOKEN_KW_DO block TOKEN_KW_END
+
+    TOKEN_SEP_COMMA  shift, and go to state 60
+    TOKEN_KW_DO      shift, and go to state 61
+
+
+State 58
+
+   14 funcbody: TOKEN_SEP_LPAREN parlist TOKEN_SEP_RPAREN block TOKEN_KW_END .
+
+    $default  reduce using rule 14 (funcbody)
+
+
+State 59
+
+   11 stat: TOKEN_KW_FOR namelist TOKEN_KW_IN explist TOKEN_KW_DO block TOKEN_KW_END .
+
+    $default  reduce using rule 11 (stat)
+
+
+State 60
+
+   10 stat: TOKEN_KW_FOR name TOKEN_OP_ASSIGN exp TOKEN_SEP_COMMA exp TOKEN_SEP_COMMA . exp TOKEN_KW_DO block TOKEN_KW_END
+
+    TOKEN_NUMBER  shift, and go to state 19
+    TOKEN_STRING  shift, and go to state 20
+
+    exp  转到状态 62
+
+
+State 61
+
+    9 stat: TOKEN_KW_FOR name TOKEN_OP_ASSIGN exp TOKEN_SEP_COMMA exp TOKEN_KW_DO . block TOKEN_KW_END
+
+    TOKEN_SEP_SEMI     shift, and go to state 1
+    TOKEN_KW_BREAK     shift, and go to state 2
+    TOKEN_KW_DO        shift, and go to state 3
+    TOKEN_KW_FOR       shift, and go to state 4
+    TOKEN_KW_FUNCTION  shift, and go to state 5
+    TOKEN_KW_GOTO      shift, and go to state 6
+    TOKEN_KW_REPEAT    shift, and go to state 7
+    TOKEN_KW_WHILE     shift, and go to state 8
+
+    $default  reduce using rule 13 (stat)
+
+    block  转到状态 63
+    stat   转到状态 10
+
+
+State 62
+
+   10 stat: TOKEN_KW_FOR name TOKEN_OP_ASSIGN exp TOKEN_SEP_COMMA exp TOKEN_SEP_COMMA exp . TOKEN_KW_DO block TOKEN_KW_END
+
+    TOKEN_KW_DO  shift, and go to state 64
+
+
+State 63
+
+    9 stat: TOKEN_KW_FOR name TOKEN_OP_ASSIGN exp TOKEN_SEP_COMMA exp TOKEN_KW_DO block . TOKEN_KW_END
+
+    TOKEN_KW_END  shift, and go to state 65
+
+
+State 64
+
+   10 stat: TOKEN_KW_FOR name TOKEN_OP_ASSIGN exp TOKEN_SEP_COMMA exp TOKEN_SEP_COMMA exp TOKEN_KW_DO . block TOKEN_KW_END
+
+    TOKEN_SEP_SEMI     shift, and go to state 1
+    TOKEN_KW_BREAK     shift, and go to state 2
+    TOKEN_KW_DO        shift, and go to state 3
+    TOKEN_KW_FOR       shift, and go to state 4
+    TOKEN_KW_FUNCTION  shift, and go to state 5
+    TOKEN_KW_GOTO      shift, and go to state 6
+    TOKEN_KW_REPEAT    shift, and go to state 7
+    TOKEN_KW_WHILE     shift, and go to state 8
+
+    $default  reduce using rule 13 (stat)
+
+    block  转到状态 66
+    stat   转到状态 10
+
+
+State 65
+
+    9 stat: TOKEN_KW_FOR name TOKEN_OP_ASSIGN exp TOKEN_SEP_COMMA exp TOKEN_KW_DO block TOKEN_KW_END .
+
+    $default  reduce using rule 9 (stat)
+
+
+State 66
+
+   10 stat: TOKEN_KW_FOR name TOKEN_OP_ASSIGN exp TOKEN_SEP_COMMA exp TOKEN_SEP_COMMA exp TOKEN_KW_DO block . TOKEN_KW_END
+
+    TOKEN_KW_END  shift, and go to state 67
+
+
+State 67
+
+   10 stat: TOKEN_KW_FOR name TOKEN_OP_ASSIGN exp TOKEN_SEP_COMMA exp TOKEN_SEP_COMMA exp TOKEN_KW_DO block TOKEN_KW_END .
+
+    $default  reduce using rule 10 (stat)

@@ -1,0 +1,15 @@
+error: in ifstat, line: 1
+error: in ifstat, line: 5
+error: in forstat, line: 9
+Block
+  IfStat
+  exps:
+  blocks:
+  IfStat
+  exps:
+  blocks:
+  LocalVarDeclStat
+  namelist:
+    x
+  explist:
+    IntegerExp: 1
